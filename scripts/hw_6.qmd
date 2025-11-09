@@ -14,6 +14,7 @@ fig-height: 8
 library("tidyverse")
 library("rio")
 library("here")
+library("ggplot2")
 
 # import star data
 star <- import(here("data/star.csv"))
