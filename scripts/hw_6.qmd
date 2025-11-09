@@ -4,7 +4,18 @@ author: "Steven McIntyre & Maritza Ruiz"
 format: pdf
 execute:
   echo: false
+  warning: false
 fig-width: 6.5
 fig-height: 8
 ---
 
+```{r}
+# add libraries
+library("tidyverse")
+library("rio")
+library("here")
+
+# import star data
+star <- import(here("data/star.csv"))
+#head(star)
+```
