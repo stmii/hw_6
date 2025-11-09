@@ -1,0 +1,10 @@
+---
+title: "hw_6"
+author: "Steven McIntyre & Maritza Ruiz"
+format: pdf
+execute:
+  echo: false
+fig-width: 6.5
+fig-height: 8
+---
+
