@@ -21,11 +21,24 @@ star <- import(here("data/star.csv"))
 #head(star)
 ```
 
-We used the following packages for this assignment: tidyverse [@tidyverse],
+We used the following packages for this assignment: knitr [@knitr], tidyverse [@tidyverse],
 Rio by @rio,
   and here [@here].
 
 We also reviewed the website for the National Student Clearinghouse Research Center [@NSC_PersistenceRetention] as it provides information on persistence and retention. 
+
+```{r}
+star |>
+  group_by(sex, frl) |>
+  summarize(across(c(tmathss:treadss), list(mean, sd))) |>
+  knitr::kable(
+    col.names = c("sex", "frl", "math_mean", "math_sd", "rdg_mean", "rdg_sd"),
+    digits = 2
+  )
+  
+  
+```
+This table describes the mean and standard deviation on math and reading scores by sex and free and reduced lunch (frl) status. The data show that students, regardless of sex, show higher math and reading scores on average when they are not also on free and reduced lunch. Furthermore, we see a higher math and reading score average for girls than for boys. There doesn't seem to be any sort of colliding effect between sex and frl status, as the difference in the mean between boys on frl and girls on frl is about the same as the diffferent between boys not on frl and girls not on frl for both reading and math scores.
 
 \newpage
 
