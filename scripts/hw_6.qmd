@@ -2,6 +2,7 @@
 title: "hw_6"
 author: "Steven McIntyre & Maritza Ruiz"
 format: pdf
+bibliography: references.bib
 execute:
   echo: false
   warning: false
@@ -11,12 +12,21 @@ fig-height: 8
 
 ```{r}
 # add libraries
-library("tidyverse")
-library("rio")
-library("here")
-library("ggplot2")
+library(tidyverse)
+library(rio)
+library(here)
 
 # import star data
 star <- import(here("data/star.csv"))
 #head(star)
 ```
+
+We used the following packages for this assignment: tidyverse [@tidyverse],
+Rio by @rio,
+  and here [@here].
+
+We also reviewed the website for the National Student Clearinghouse Research Center [@NSC_PersistenceRetention] as it provides information on persistence and retention. 
+
+\newpage
+
+# References
