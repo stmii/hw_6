@@ -15,6 +15,7 @@ fig-height: 8
 library(tidyverse)
 library(rio)
 library(here)
+library(dplyr)
 
 # import star data
 star <- import(here("data/star.csv"))
@@ -36,9 +37,59 @@ star |>
     digits = 2
   )
   
-  
 ```
 This table describes the mean and standard deviation on math and reading scores by sex and free and reduced lunch (frl) status. The data show that students, regardless of sex, show higher math and reading scores on average when they are not also on free and reduced lunch. Furthermore, we see a higher math and reading score average for girls than for boys. There doesn't seem to be any sort of colliding effect between sex and frl status, as the difference in the mean between boys on frl and girls on frl is about the same as the diffferent between boys not on frl and girls not on frl for both reading and math scores.
+
+```{r}
+star <- star %>%
+  mutate(frl = case_when(
+    frl == "yes" ~ "Yes",
+    frl == "no"  ~ "No",
+    TRUE ~ NA_character_
+  )) %>%
+  mutate(frl = factor(frl, levels = c("Yes", "No")))
+
+ggplot(star, aes(x = totexp, y = tmathss)) +
+  geom_point(color = "grey", alpha = 0.6) +
+  geom_smooth(
+    aes(fill = frl),
+    method = "lm",
+    se = TRUE,
+    color = NA,
+    alpha = 0.5
+  ) +
+  geom_smooth(
+    aes(color = frl),
+    method = "lm",
+    se = FALSE,
+    linewidth = 1.0
+  ) +
+  scale_color_manual(
+    name = "Lunch Status",
+    values = c("Yes" = "aquamarine", "No" = "indianred"),
+    labels = c("Yes" = "Free/Reduced Price Meals", "No" = "Paid Meals")
+  ) +
+  scale_fill_manual(
+    name = "Lunch Status",
+    values = c("Yes" = "grey", "No" = "grey"),
+    labels = c("Yes" = "Free/Reduced Price Meals", "No" = "Paid Meals")
+  ) +
+  labs(
+    title = "Relation between teacher experience and math scores",
+    subtitle = "Separate regression lines displayed by free/reduced price lunch status",
+    x = "Teacher Experience (years)",
+    y = "Total Math Scale Score"
+  ) +
+  theme_minimal(base_size = 10) +
+  theme(
+    legend.position = "bottom",
+    legend.title = element_text(size = 9),
+    legend.text = element_text(size = 9),
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5)
+  )
+```
+The graph shows that math scores increase slightly as teacher experience increases (in years), indicating a positive relationship. While both groups benefit from teachers with more years of experience, students who receive free or reduced‑price lunch consistently score lower than those who do not, suggesting a socioeconomic achievement gap.
 
 \newpage
 
